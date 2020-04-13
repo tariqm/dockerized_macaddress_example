@@ -8,7 +8,7 @@
     Python Version: 3.7+
 '''
 
-import json, requests, argparse
+import requests, argparse
 
 # Use argparse to process arguments.
 parser = argparse.ArgumentParser()
@@ -16,10 +16,10 @@ parser.add_argument('-k', '--api_key', required=True, help="macaddress.io API ke
 parser.add_argument('-m', '--mac_address', required=True, help="Mac Address (required)")
 args = parser.parse_args()
 
-apiurl = 'https://api.macaddress.io/v1?output=json&search=' + args.mac_address + '&apiKey=' + args.api_key
+apiurl = 'https://api.macaddress.io/v1'
+payload = {'search': args.mac_address, 'apiKey': args.api_key}
 
-r = requests.get(apiurl)
-response = json.loads(r.text)
+r = requests.get(apiurl, params=payload)
 
 print('MAC Address:', args.mac_address)
-print('Company Name:', response['vendorDetails']['companyName'])
+print('Company Name:', r.text)
