@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:alpine
 WORKDIR /app
 COPY macaddress.py /app
 RUN pip install --upgrade pip && \
